@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Price Compare Hub</title>
+  <link rel="stylesheet" href="/css/style.css" />
+
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="#">Price Comparison</a>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+  </header>
+
+  <main>
+    <div class="search-bar">
+      <form action="/search" method="get">
+        <input type="text" name="searched" placeholder="Search products...">
+        <button id="search-bar" type="submit">Search</button>
+
+
+      </form>
+    </div>
+    <div class="all">
+      <div class="product-container">
+        <div class="product-list">
+          <script>
+
+            // document.querySelector('#search-bar').addEventListener('click', function(event) {
+            //   event.preventDefault();
+            // });
+
+            const productcontainer = document.getElementsByClassName('.product-container')
+            const productlist = document.getElementsByClassName('.product-list')
+            fetch('/api/v1/cheapest-product')
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                data.forEach(element => {
+                  var name = element.name
+                  var price = element.price
+                  var imagelink = element.image
+                  var Website = element.website
+                  var link = element.link
+
+
+
+                  const productDiv = document.createElement('div');
+                  productDiv.classList.add('product');
+
+                  // Create a div element for the product image
+                  const imageDiv = document.createElement('div');
+                  imageDiv.classList.add('product-image');
+
+                  // Create an img element and set its src and alt attributes
+                  const image = document.createElement('img');
+                  image.setAttribute('src', `${imagelink}`);
+                  image.setAttribute('alt', 'Product Image');
+
+                  // Append the image element to the image div
+                  imageDiv.appendChild(image);
+
+                  // Create a div element for the product details
+                  const detailsDiv = document.createElement('div');
+                  detailsDiv.classList.add('product-details');
+
+                  // Create a h3 element for the product name
+                  const nameHeader = document.createElement('h3');
+                  nameHeader.textContent = `${name}`;
+
+                  // Create a p element for the product description
+                  const descriptionParagraph = document.createElement('p');
+                  descriptionParagraph.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
+                  // Create a p element for the product price
+                  const priceParagraph = document.createElement('p');
+                  priceParagraph.classList.add('price');
+                  priceParagraph.textContent = `RS.${price}`;
+
+                  const spanbutton = document.createElement('span');
+                  spanbutton.classList.add('price');
+                  spanbutton.innerHTML = '<button onclick="binod()"'
+                  function binod(link) {
+                    window.location.href = `${link}`
+                  }
+
+                  // Append the name, description, and price elements to the details div
+                  detailsDiv.appendChild(nameHeader);
+                  detailsDiv.appendChild(descriptionParagraph);
+                  detailsDiv.appendChild(priceParagraph);
+                  detailsDiv.appendChild(spanbutton);
+
+                  // Append the image and details divs to the product div
+                  productDiv.appendChild(imageDiv);
+                  productDiv.appendChild(detailsDiv);
+
+                  // Append the product div to the document body
+                  document.body.appendChild(productDiv);
+
+
+
+                });
+              })
+
+
+
+
+
+
+
+          </script>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+
+
+
+
+
+
+
+  </script></body></html>
